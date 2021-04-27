@@ -1,0 +1,127 @@
+<div class="card bg-dark text-white ">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="container ">
+
+        <div class="row justify-content-md-around  ">
+
+          <div class="col justify-content-md-start col-sm-7 " *ngIf="residente">
+
+            <form #residenteForm="ngForm">
+
+              <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" [(ngModel)]="residente.nombre" name="nombre" required #nombre="ngModel">
+                  <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    <div *ngIf="nombre.errors.required">
+                      El campo "nombre" es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-4">Apellido</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" [(ngModel)]="residente.apellido" name="apellido" required #apellido="ngModel">
+                  <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                    <div *ngIf="apellido.errors.required">
+                      El campo "apellido" es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="numeroCelular" class="col-form-label col-sm-4">Numero Celular</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" [(ngModel)]="residente.numeroCelular" name="numeroCelular" pattern="[0-9]\d{9,9}" #celular="ngModel">
+                  <div class="alert alert-danger" *ngIf="celular.invalid && (celular.dirty || celular.touched)">
+                    <div *ngIf="celular.errors.pattern">
+                      El campo "Numero Celular" debe tener 10 digitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="identificacion" class="col-form-label col-sm-4">Identificacion</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" [(ngModel)]="residente.identificacion" name="identificacion" required pattern="[0-9]\d{5,11}" #identificacion="ngModel">
+                  <div class="alert alert-danger" *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                    <div *ngIf="identificacion.errors.required">
+                      El campo "identificacion" es requerido
+                    </div>
+                    <div *ngIf="identificacion.errors.pattern">
+                      El campo "identificacion" solo acepta valores numericos entre 6 y 12 digitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="numeroApartamento" class="col-form-label col-sm-4">Numero De Apartamento</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" [(ngModel)]="residente.numeroApartamento" name="numeroApartamento" required pattern="[0-9]\d{2,7}" #apartamento="ngModel">
+                  <div class="alert alert-danger" *ngIf="apartamento.invalid && (apartamento.dirty || apartamento.touched)">
+                    <div *ngIf="apartamento.errors.required">
+                      El campo "apartamento" es requerido
+                    </div>
+                    <div *ngIf="apartamento.errors.pattern">
+                      El campo "apartamento" solo acepta valores numericos entre 3 y 8 digitos
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="rol" class="col-form-label col-sm-4">Tipo de usuario</label>
+                <div class="col-sm-7">
+                  <select [compareWith]="compareRol" type="text" class="form-control" [(ngModel)]="residente.rol" name="rol" required #rol="ngModel">
+                    <option [ngValue]="undefined">--- Seleccionar un tipo de usuario ---</option>
+                    <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.rol}}</option>
+                  </select>
+                  <div class="alert alert-danger" *ngIf="rol.invalid && (rol.dirty || rol.touched)">
+                    <div *ngIf="rol.errors.required">
+                      El campo "Tipo de Usuario" es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-11">
+                  <div class="input-group mb-2">
+                    <input (change)="seleccionarFoto($event) " type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" arial-label="dddddd">
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-11">
+                  <div *ngIf="progreso > 0" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progreso+'%'}">
+                      Subiendo Foto al sistema...
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!residente.id else elseBlock" [disabled]="!residenteForm.form.valid || !fotoSeleccionada">Crear</button>
+                  <ng-template #elseBlock>
+                    <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!residenteForm.form.valid">Editar</button>
+                  </ng-template>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-3 col align-self-star">
+            <img *ngIf="residente?.urlImage" src="{{residenteTempo.urlImage}}" alt="{{residenteTempo.urlImage}}" class="img-fluid img-thumbnail ">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

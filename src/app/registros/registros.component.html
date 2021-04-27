@@ -1,0 +1,41 @@
+
+
+<div class="card border-primary mb-3" *ngIf="authService.isAuthenticated()">
+  <div class="card-header">Registros</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de registros</h5>
+    <div class="my-2 text-left">
+
+    </div>
+<table class="table table-bordered table-striped " >
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>identificacion</th>
+          <th>Numero Celular</th>
+          <th>Numero Apartamento</th>
+          <th>Ingreso/Salida</th>
+          <th>Fecha</th>
+          <th>Rol</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of registros">
+        <td>{{registro.nombre}}</td>
+        <td>{{registro.apellido}}</td>
+        <td>{{registro.identificacion}}</td>
+        <td>{{registro.numeroCelular}}</td>
+        <td>{{registro.numeroApartamento}}</td>
+        <td>{{registro.operacion}}</td>
+        <td>{{registro.date}}</td>
+        <td>{{registro.rol}}</td>
+        <td>{{registro.descripcion}}</td>
+
+        </tr>
+      </tbody>
+  </table>
+  <paginator2-nav *ngIf="paginador" [paginador]="paginador"></paginator2-nav>
+</div>
+</div>

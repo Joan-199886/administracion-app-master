@@ -1,0 +1,52 @@
+
+<detalle-residente *ngIf="residenteSeleccionado"[residente] = "residenteSeleccionado"></detalle-residente>
+
+
+<div class="card border-primary mb-3" *ngIf="authService.isAuthenticated()">
+  <div class="card-header">Residentes</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de residentes</h5>
+    <div class="my-2 text-left">
+
+      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/residentes/form']">
+             Crear Residente
+      </button>
+    </div>
+<table class="table table-bordered table-striped " >
+      <thead>
+        <tr>
+          <th>Perfil</th>
+          <th>Tipo de Usuario</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Numero Celular</th>
+          <th>identificacion</th>
+          <th>Numero Apartamento</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let residente of residentes">
+        <td><button type="button" (click)="abrirModal(residente)" class="btn btn-success btn-sm" >Ver</button></td>
+        <td>{{residente.rol.rol}}</td>
+        <td>{{residente.nombre}}</td>
+        <td>{{residente.apellido}}</td>
+        <td>{{residente.numeroCelular}}</td>
+          <td>{{residente.identificacion}}</td>
+        <td>{{residente.numeroApartamento}}</td>
+
+        <td>
+          <button type="button" name="editar" [routerLink]="['/residentes/form', residente.id]" class="btn btn-primary btn-sm">editar</button>
+        </td>
+        <td>
+          <button type="button" name="eliminar" (click)='delete(residente)' class="btn btn-danger btn-sm">eliminar</button>
+        </td>
+
+
+        </tr>
+      </tbody>
+  </table>
+  <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+</div>
+</div>

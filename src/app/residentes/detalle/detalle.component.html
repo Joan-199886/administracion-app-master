@@ -1,0 +1,69 @@
+
+<div class="abrir-modal animacion fadeIn"  *ngIf="modalService.modal">
+<div *ngIf="modalService.modal" class="modal" tabindex="-1" style="display:block;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{titulo}}</h5>
+        <button (click)="cerrarModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+
+          <div class=" row justify-content-md-around">
+
+            <div class="col-sm-6 " *ngIf="residente">
+
+              <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled ">{{residente.nombre}}</li>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-4">Apellido</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled">{{residente.apellido}}</li>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="numeroCelular" class="col-form-label col-sm-4">Numero Celular</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled">{{residente.numeroCelular}}</li>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="identificacion" class="col-form-label col-sm-4 " >Identificacion</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled">{{residente.identificacion}}</li>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="numeroApartamento" class="col-form-label col-sm-4">Numero de apartamento</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled ">{{residente.numeroApartamento}}</li>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="rol" class="col-form-label col-sm-4">Tipo de usuario</label>
+                <div class="col-sm-8">
+                  <li class="list-group-item disabled">{{residente.rol.rol}}</li>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5 text-center">
+              <img *ngIf="residente?.urlImage" src="{{residente.urlImage}}" alt="{{residente.urlImage}}" class="img-thumbnail">
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" type="button" class="btn-close  btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
