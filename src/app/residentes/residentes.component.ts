@@ -18,7 +18,7 @@ export class ResidentesComponent implements OnInit {
   residen:Residente;
   constructor(private residenteService: ResidenteService,
     private activatedRoute: ActivatedRoute
-    ,private  modalService:ModalService,public authService:AuthService  ) { }
+    ,public  modalService:ModalService,public authService:AuthService  ) { }
 
   ngOnInit() {
 

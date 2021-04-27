@@ -13,8 +13,8 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class FormComponent implements OnInit {
 
-  residente: Residente = new Residente();
-  residenteTempo: Residente = new Residente();
+  public residente: Residente = new Residente();
+  public residenteTempo: Residente = new Residente();
   titulo: string = "Crear Residente";
   fotoSeleccionada: File;
   roles: Rol[];
@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
     private residenteService: ResidenteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService) { }
+    public authService: AuthService) { }
 
 
   ngOnInit() {

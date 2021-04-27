@@ -19,7 +19,7 @@ export class DetalleComponent implements OnInit {
   public modalService:ModalService){ }
 
   ngOnInit(): void {
-  
+
   }
 /*  seleccionarFoto(event)
   {
