@@ -21,31 +21,7 @@ export class DetalleComponent implements OnInit {
   ngOnInit(): void {
 
   }
-/*  seleccionarFoto(event)
-  {
-    this.fotoSeleccionada = event.target.files[0];
-    console.log(this.fotoSeleccionada);
-    if(this.fotoSeleccionada.type.indexOf('image')<0)
-    {
-      Swal.fire("Error seleccionar imagen : "," El archivo debe ser tipo imagen",'error');
-      this.fotoSeleccionada=null;
-    }
-  }
-  subirFoto()
-  {
-    if(!this.fotoSeleccionada)
-    {
-      Swal.fire("Error Upload: "," Debe seleccionar una foto",'error');
-    }
-else {
-    this.residenteService.subirFoto(this.fotoSeleccionada,this.residente.id)
-    .subscribe(residente =>{
-      //  this.residente = residente;
-      Swal.fire('La foto se ha subido completamente',`La foto se ha subido con exito: ${this.residente.urlImage}`,'success');
-    });
-  }
-}
-*/
+
 cerrarModal()
 {
   this.modalService.cerrarModal();

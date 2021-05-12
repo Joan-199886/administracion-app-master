@@ -53,8 +53,6 @@ private agregarAuthorizationHeader()
 
   getResidentes(page: number,idEdificio:number): Observable<any>
   {
-    //console.error("entre");
-
     return this.http.post<any>(this.urlEndPoint+'/page/' + page,idEdificio,{headers:this.agregarAuthorizationHeader()}).pipe(
       tap((response: any) => response.content as Residente[])
     )
@@ -62,8 +60,6 @@ private agregarAuthorizationHeader()
 
   getRegistros(page: number,idEdificio:number): Observable<any>
   {
-  //  console.error("entre registros");
-
     return this.http.post<any>(this.urlEndPoint2+'/registros/page/' + page,idEdificio,{headers:this.agregarAuthorizationHeader()}).pipe(
       tap((response: any) => response.content as Registro[])
     )
@@ -75,12 +71,10 @@ private agregarAuthorizationHeader()
       catchError(e => {
         if(this.isNoAutorizado(e))
         {
-        //  console.error("entreeee");
           this.router.navigate(['/login'])
 
           return throwError(e);
         }
-      //  console.error(e.error.mensaje);
         swal.fire('Error al crear un nuevo residente', e.error.mensaje, 'error');
         return throwError(e);
 
@@ -97,7 +91,6 @@ private agregarAuthorizationHeader()
           return throwError(e);
         }
         this.router.navigate(['/residentes']);
-        //console.error(e.error.mensaje);
         swal.fire('Error al editar el residente', e.error.mensaje, 'error');
 
         return throwError(e);
@@ -126,21 +119,22 @@ private agregarAuthorizationHeader()
         {
           return throwError(e);
         }
-      //  console.error(e.error.mensaje);
         swal.fire('Error al eliminar el residente', e.error.mensaje, 'error');
         return throwError(e);
 
       })
     )
   }
-subirFoto(archivo:File,id):Observable<HttpEvent<{}>>
+
+
+subirFoto(archivo:File,id,proceso):Observable<HttpEvent<{}>>
 {
-//  console.error("llegue a subir fot"+"foto : ");
   let formData = new FormData();
   let idEdificio = +this.authService.usuario.idEdificio;
   formData.append("archivo",archivo);
   formData.append("id",id);
   formData.append("idConjunto",""+idEdificio);
+  formData.append("proceso",proceso);
 
   let httpHeaders = new HttpHeaders();
   let token = this.authService.token;
@@ -158,12 +152,9 @@ subirFoto(archivo:File,id):Observable<HttpEvent<{}>>
 getUrl(id:number): Observable<any>
 {
 
-//  console.log("el id es "+id);
-//console.log("llegue al metodo traer url");
   return this.http.post(`${this.urlEndPoint}/generate`,id,{headers:this.agregarAuthorizationHeader()}).pipe(
     catchError(e =>
       {
-    //  console.error(e.error.mensaje);
       return throwError(e.error.mensaje);
     })
   );

@@ -24,18 +24,15 @@ export class RegistrosComponent implements OnInit {
        {
        let page = +params.get('page');
        let idEdificio = +this.authService.usuario.idEdificio;
-     //  console.error("el id del edificio es "+idEdificio);
-
        if (!page) {
          page = 0;
        }
-   //    let idConjunto = sessionStorag
-     //  console.error("entre");
+
        this.residenteService.getRegistros(page,idEdificio).subscribe(
          response => {
            this.registros = response.content as Registro[]
            this.paginador = response;
-          // console.log(response);
+
          });
      })
 

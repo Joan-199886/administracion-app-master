@@ -2,15 +2,10 @@
   <div class="card-header">{{ titulo }}</div>
   <div class="card-body">
     <div class="row">
-
       <div class="container ">
-
         <div class="row justify-content-md-around  ">
-
           <div class="col justify-content-md-start col-sm-7 " *ngIf="residente">
-
             <form #residenteForm="ngForm">
-
               <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
                 <div class="col-sm-7">
@@ -22,7 +17,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="apellido" class="col-form-label col-sm-4">Apellido</label>
                 <div class="col-sm-7">
@@ -34,7 +28,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="form-group row">
                 <label for="numeroCelular" class="col-form-label col-sm-4">Numero Celular</label>
                 <div class="col-sm-7">
@@ -92,12 +85,9 @@
                 <div class="col-sm-11">
                   <div class="input-group mb-2">
                     <input (change)="seleccionarFoto($event) " type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" arial-label="dddddd">
-
                   </div>
                 </div>
-
               </div>
-
               <div class="form-group row">
                 <div class="col-sm-11">
                   <div *ngIf="progreso > 0" class="progress">

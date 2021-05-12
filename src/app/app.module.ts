@@ -15,6 +15,7 @@ import { RegistrosComponent } from './registros/registros.component';
 import { LoginComponent } from './usuarios/login.component';
 import { AuthGuard } from './usuarios/guards/auth.guard';
 import { Paginator2Component } from './paginator/paginator2.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
 
     RouterModule.forRoot(routes)
   ],
-  providers: [ResidenteService],
+  providers: [ResidenteService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -26,14 +26,11 @@ export class ResidentesComponent implements OnInit {
       {
       let page = +params.get('page');
       let idEdificio = +this.authService.usuario.idEdificio;
-    //  console.error("el id del edificio es "+idEdificio);
 
       if (!page) {
         page = 0;
       }
 
-  //    let idConjunto = sessionStorag
-    //  console.error("entre");
       this.residenteService.getResidentes(page,idEdificio).subscribe(
         response => {
           this.residentes = response.content as Residente[]
@@ -69,30 +66,22 @@ export class ResidentesComponent implements OnInit {
               'El residente ha sido eliminado del sistema!',
               'success'
             )
-          }
-        )
-
-      }
+          })
+        }
     })
   }
-
 abrirModal(residente:Residente)
 {
   this.residenteService.getUrl(residente.id).subscribe(
     response =>
     {
-    //  console.log(response.url);
       if(response.url!="null")
       {
         residente.urlImage = response.url;
       }else{console.log("no hay nada")}
 
-    }
-  );
-
+    });
   this.residenteSeleccionado = residente;
   this.modalService.abrirModal();
 }
-
-
 }

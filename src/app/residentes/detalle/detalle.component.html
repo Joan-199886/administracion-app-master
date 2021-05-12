@@ -9,11 +9,8 @@
       </div>
       <div class="modal-body">
         <div class="container">
-
           <div class=" row justify-content-md-around">
-
             <div class="col-sm-6 " *ngIf="residente">
-
               <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
                 <div class="col-sm-8">
@@ -54,11 +51,8 @@
             <div class="col-sm-5 text-center">
               <img *ngIf="residente?.urlImage" src="{{residente.urlImage}}" alt="{{residente.urlImage}}" class="img-thumbnail">
             </div>
-
           </div>
         </div>
-
-
       </div>
       <div class="modal-footer">
         <button (click)="cerrarModal()" type="button" class="btn-close  btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>

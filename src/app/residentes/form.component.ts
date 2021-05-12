@@ -25,12 +25,10 @@ export class FormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public authService: AuthService) { }
 
-
   ngOnInit() {
     this.cargarResidente();
     this.residenteService.getRoles().subscribe(roles => this.roles = roles);
   }
-
   cargarResidente(): void {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
@@ -38,74 +36,71 @@ export class FormComponent implements OnInit {
         this.residenteService.getResidente(id).subscribe((residente) => this.residente = residente)
         this.residenteTempo = this.residente;
         this.residenteService.getUrl(id).subscribe((response => this.residenteTempo.urlImage = response.url))
-        //  console.error("url"+this.residente.urlImage);
       }
     })
   }
   create(): void {
     this.residente.idEdificio = +this.authService.usuario.idEdificio;
-    //  console.log("el codigo de conjunto es"+this.residente.idEdificio);
     this.residenteService.create(this.residente)
       .subscribe(json => {
-        this.subirFoto(json.residente.id);
-        //Swal.fire('Nuevo residente', `${json.mensaje}: ${json.residente.nombre}`, 'success')
-      }
-      );
-
+        this.subirFoto(json.residente.id, "create");
+      });
   }
-
   update(): void {
     this.residenteService.update(this.residente)
       .subscribe(json => {
-        //  this.router.navigate(['/residentes']);
         if (this.fotoSeleccionada) {
-          this.subirFoto(json.residente.id);
+          this.subirFoto(json.residente.id, "update");
         }
         else {
           Swal.fire('Residente Actualizado', `${json.mensaje}: ${json.residente.nombre}`, 'success');
           this.router.navigate(['/residentes']);
         }
-      }
-
-      )
+      });
   }
-
   seleccionarFoto(event) {
     this.fotoSeleccionada = event.target.files[0];
     this.progreso = 0;
-  //  console.log(this.fotoSeleccionada);
     if (this.fotoSeleccionada.type.indexOf('image') < 0) {
       Swal.fire("Error seleccionar foto : ", " El archivo debe ser tipo imagen (jpg,png)", 'error');
       this.fotoSeleccionada = null;
     }
   }
-  subirFoto(id: number) {
-    //console.error("llegue a subir fot 1"+"el residente id es :"+ id+this.fotoSeleccionada.name);
+  subirFoto(id: number, proceso) {
     if (!this.fotoSeleccionada) {
       Swal.fire("Error al subir la foto : ", " Debe seleccionar una foto", 'error');
     }
     else {
-      this.residenteService.subirFoto(this.fotoSeleccionada, id)
+      this.residenteService.subirFoto(this.fotoSeleccionada, id, proceso)
         .subscribe(event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progreso = Math.round((event.loaded / event.total) * 100);
-          //  console.log("progreso" + this.progreso);
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
-            this.residente = response.residente as Residente;
-            Swal.fire('La informacion del residente ha sido guardada', `La foto se ha subido con exito: ${this.residente.urlImage}`, 'success');
-            this.router.navigate(['/residentes']);
+            if (response.status == 500) {
+              Swal.fire('Error al registrar el residente', response.error, 'error');
+              this.fotoSeleccionada = null;
+              this.router.navigate(['/residentes']);
+            }
+            if (response.status == 400) {
+              let response: any = event.body;
+              Swal.fire('Error al registrar el residente', response.mensaje, 'error');
+              this.fotoSeleccionada = null;
+              this.router.navigate(['/residentes']);
+            }
+            if (response.status == 200) {
+              this.residente = response.residente as Residente;
+              Swal.fire('La informacion del residente ha sido guardada', `La foto se ha subido con exito: ${this.residente.urlImage}`, 'success');
+              this.router.navigate(['/residentes']);
+            }
           }
         });
-
     }
   }
-
   compareRol(o1: Rol, o2: Rol): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
     }
     return o1 == null || o2 == null ? false : o1.id == o2.id;
   }
-
 }
