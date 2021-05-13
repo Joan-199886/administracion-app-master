@@ -18,7 +18,8 @@ export class DetalleComponent implements OnInit {
   constructor(private residenteService: ResidenteService,
   public modalService:ModalService){ }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
 
   }
 

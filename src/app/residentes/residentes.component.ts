@@ -72,16 +72,19 @@ export class ResidentesComponent implements OnInit {
   }
 abrirModal(residente:Residente)
 {
+  let url;
   this.residenteService.getUrl(residente.id).subscribe(
     response =>
     {
       if(response.url!="null")
       {
-        residente.urlImage = response.url;
+       residente.urlImage = response.url;
       }else{console.log("no hay nada")}
 
     });
+    residente.urlImage = url;
   this.residenteSeleccionado = residente;
+  //console.log(this.residenteSeleccionado.urlImage);
   this.modalService.abrirModal();
 }
 }

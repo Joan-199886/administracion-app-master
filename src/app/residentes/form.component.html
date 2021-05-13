@@ -9,10 +9,13 @@
               <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" [(ngModel)]="residente.nombre" name="nombre" required #nombre="ngModel">
+                  <input type="text" class="form-control" [(ngModel)]="residente.nombre" name="nombre" pattern="^[A-Za-z ]+$" maxlength="35" required   #nombre="ngModel">
                   <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                     <div *ngIf="nombre.errors.required">
                       El campo "nombre" es requerido
+                    </div>
+                    <div *ngIf="nombre.errors.pattern">
+                      El campo "nombre" solo acepta valores alfabeticos
                     </div>
                   </div>
                 </div>
@@ -20,10 +23,13 @@
               <div class="form-group row">
                 <label for="apellido" class="col-form-label col-sm-4">Apellido</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control" [(ngModel)]="residente.apellido" name="apellido" required #apellido="ngModel">
+                  <input type="text" class="form-control" [(ngModel)]="residente.apellido" name="apellido" pattern="^[A-Za-z ]+$" maxlength="35" required  #apellido="ngModel">
                   <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
                     <div *ngIf="apellido.errors.required">
                       El campo "apellido" es requerido
+                    </div>
+                    <div *ngIf="apellido.errors.pattern">
+                      El campo "apellido" solo acepta valores alfabeticos
                     </div>
                   </div>
                 </div>
@@ -34,7 +40,7 @@
                   <input type="text" class="form-control" [(ngModel)]="residente.numeroCelular" name="numeroCelular" pattern="[0-9]\d{9,9}" #celular="ngModel">
                   <div class="alert alert-danger" *ngIf="celular.invalid && (celular.dirty || celular.touched)">
                     <div *ngIf="celular.errors.pattern">
-                      El campo "Numero Celular" debe tener 10 digitos
+                      El campo "Numero Celular" solo acepta caracteres numerico de 10 digitos
                     </div>
                   </div>
                 </div>
@@ -108,7 +114,7 @@
             </form>
           </div>
           <div class="col-sm-3 col align-self-star">
-            <img *ngIf="residente?.urlImage" src="{{residenteTempo.urlImage}}" alt="{{residenteTempo.urlImage}}" class="img-fluid img-thumbnail ">
+            <img *ngIf="residenteTempo?.urlImage" src="{{residenteTempo.urlImage}}" alt="{{residenteTempo.urlImage}}" class="img-fluid img-thumbnail ">
           </div>
         </div>
       </div>
